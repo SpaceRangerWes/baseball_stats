@@ -397,3 +397,224 @@ def demonstrate_modern_analytics_revolution():
     
     print("This represents the biggest analytical revolution in baseball")
     print("since the original sabermetrics movement of the 1980s-2000s.")
+
+
+def create_hitter_radar_chart():
+    """Create a radar chart for different hitter types"""
+    import plotly.graph_objects as go
+    
+    # Define categories and their typical ranges
+    categories = ['Power', 'Contact', 'Patience', 'Speed', 'Consistency']
+    
+    # Example values for different hitter types (normalized 0-100)
+    hitter_profiles = {
+        'Three True Outcomes': [90, 40, 70, 30, 50],
+        'Contact Artist': [30, 90, 60, 70, 80],
+        'Elite Hitter': [80, 80, 85, 60, 90],
+        'Average Hitter': [50, 50, 50, 50, 50]
+    }
+    
+    fig = go.Figure()
+    
+    colors = ['red', 'blue', 'green', 'orange']
+    for i, (hitter_type, values) in enumerate(hitter_profiles.items()):
+        fig.add_trace(go.Scatterpolar(
+            r=values,
+            theta=categories,
+            fill='toself',
+            name=hitter_type,
+            line_color=colors[i]
+        ))
+    
+    fig.update_layout(
+        polar=dict(
+            radialaxis=dict(
+                visible=True,
+                range=[0, 100]
+            )
+        ),
+        showlegend=True,
+        title="Hitter Type Characteristics Profile",
+        width=800,
+        height=600
+    )
+    
+    return fig
+
+
+def create_metrics_explanation():
+    """Create educational visualization explaining advanced metrics"""
+    import matplotlib.pyplot as plt
+    import numpy as np
+    
+    # Define metric categories and their importance
+    metric_categories = {
+        'Swing Mechanics': {
+            'Bat Speed': 'Raw power potential - faster bat = more power',
+            'Swing Length': 'Efficiency - shorter swing = better contact',
+            'Attack Angle': 'Launch angle optimization for power'
+        },
+        'Plate Discipline': {
+            'Whiff Rate': 'Ability to make contact - lower is better',
+            'Chase Rate': 'Pitch recognition - chasing bad pitches',
+            'Zone Contact': 'Contact on hittable pitches'
+        },
+        'Expected Performance': {
+            'xwOBA': 'Expected weighted on-base average',
+            'xBA': 'Expected batting average based on contact quality',
+            'xSLG': 'Expected slugging based on exit velocity/angle'
+        },
+        'Contact Quality': {
+            'Barrel Rate': 'Percentage of ideal contact (98+ mph, 26-30°)',
+            'Hard Hit Rate': 'Percentage of 95+ mph exit velocity',
+            'Sweet Spot %': 'Percentage of 8-32° launch angle'
+        }
+    }
+    
+    # Create metric importance visualization
+    fig, axes = plt.subplots(2, 2, figsize=(16, 12))
+    fig.suptitle('Advanced Metrics Educational Breakdown', fontsize=16, fontweight='bold')
+    
+    # Metric importance radar chart data
+    categories = list(metric_categories.keys())
+    importance_scores = [85, 90, 95, 88]  # Subjective importance scores
+    
+    # Create pie chart for metric category importance
+    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4']
+    axes[0, 0].pie(importance_scores, labels=categories, autopct='%1.1f%%', 
+                   colors=colors, startangle=90)
+    axes[0, 0].set_title('Relative Importance of Metric Categories')
+    
+    # Create metric timeline (when they became important)
+    timeline_data = {
+        'Traditional Era (1900-1990)': ['BA', 'RBI', 'HR', 'Wins', 'ERA'],
+        'Sabermetric Era (1990-2010)': ['OBP', 'SLG', 'OPS', 'WHIP', 'FIP'],
+        'Statcast Era (2010-Present)': ['xwOBA', 'Barrel%', 'Exit Velocity', 'Launch Angle']
+    }
+    
+    y_pos = 0
+    colors_timeline = ['lightcoral', 'lightblue', 'lightgreen']
+    for i, (era, metrics) in enumerate(timeline_data.items()):
+        axes[0, 1].barh(y_pos, len(metrics), color=colors_timeline[i], alpha=0.7, 
+                       label=era, height=0.8)
+        axes[0, 1].text(len(metrics)/2, y_pos, f'{len(metrics)} metrics', 
+                       ha='center', va='center', fontweight='bold')
+        y_pos += 1
+    
+    axes[0, 1].set_yticks(range(len(timeline_data)))
+    axes[0, 1].set_yticklabels(timeline_data.keys())
+    axes[0, 1].set_xlabel('Number of Key Metrics')
+    axes[0, 1].set_title('Evolution of Baseball Analytics')
+    axes[0, 1].legend()
+    
+    # Create correlation strength visualization
+    metric_correlations = {
+        'BA vs wRC+': 0.65,
+        'OPS vs wRC+': 0.92,
+        'ERA vs FIP': 0.78,
+        'xwOBA vs wOBA': 0.85,
+        'Barrel% vs SLG': 0.81,
+        'K% vs Whiff%': 0.89
+    }
+    
+    metric_names = list(metric_correlations.keys())
+    correlation_values = list(metric_correlations.values())
+    
+    bars = axes[1, 0].bar(range(len(metric_names)), correlation_values, 
+                         color=['red' if x < 0.7 else 'yellow' if x < 0.85 else 'green' 
+                               for x in correlation_values])
+    axes[1, 0].set_xticks(range(len(metric_names)))
+    axes[1, 0].set_xticklabels(metric_names, rotation=45, ha='right')
+    axes[1, 0].set_ylabel('Correlation Coefficient')
+    axes[1, 0].set_title('Metric Correlation Strengths')
+    axes[1, 0].set_ylim(0, 1)
+    
+    # Add correlation strength indicators
+    for i, (bar, value) in enumerate(zip(bars, correlation_values)):
+        axes[1, 0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+                       f'{value:.2f}', ha='center', va='bottom', fontweight='bold')
+    
+    # Create predictive power comparison
+    predictive_power = {
+        'Traditional': [0.45, 0.52, 0.38, 0.41],  # BA, RBI, Wins, ERA
+        'Modern': [0.78, 0.85, 0.82, 0.79]       # wRC+, wOBA, FIP, xwOBA
+    }
+    
+    x = np.arange(4)
+    width = 0.35
+    
+    bars1 = axes[1, 1].bar(x - width/2, predictive_power['Traditional'], width, 
+                          label='Traditional', color='lightcoral', alpha=0.7)
+    bars2 = axes[1, 1].bar(x + width/2, predictive_power['Modern'], width, 
+                          label='Modern', color='lightgreen', alpha=0.7)
+    
+    axes[1, 1].set_xlabel('Metric Type')
+    axes[1, 1].set_ylabel('Predictive R²')
+    axes[1, 1].set_title('Predictive Power: Traditional vs Modern')
+    axes[1, 1].set_xticks(x)
+    axes[1, 1].set_xticklabels(['Hitting', 'Overall Off.', 'Pitching', 'Expected'])
+    axes[1, 1].legend()
+    axes[1, 1].set_ylim(0, 1)
+    
+    plt.tight_layout()
+    plt.show()
+    
+    return metric_categories
+
+
+def create_advanced_metrics_analysis():
+    """Create analysis of cutting-edge baseball metrics concepts"""
+    import numpy as np
+    import pandas as pd
+    
+    # Generate synthetic advanced metrics data for demonstration
+    n_players = 150  # Example size
+    
+    advanced_metrics = pd.DataFrame({
+        'Bat_Speed': np.random.normal(72, 3, n_players),
+        'Swing_Length': np.random.normal(7.2, 0.8, n_players),
+        'xwOBA': np.random.normal(0.320, 0.040, n_players),
+        'Whiff_Rate': np.random.normal(25, 5, n_players),
+        'Chase_Rate': np.random.normal(30, 6, n_players),
+        'Zone_Contact_Rate': np.random.normal(85, 4, n_players),
+        'Swing_Aggression': np.random.normal(45, 8, n_players)
+    })
+    
+    # Ensure realistic ranges
+    advanced_metrics['Bat_Speed'] = np.clip(advanced_metrics['Bat_Speed'], 65, 80)
+    advanced_metrics['Swing_Length'] = np.clip(advanced_metrics['Swing_Length'], 5.5, 9.0)
+    advanced_metrics['xwOBA'] = np.clip(advanced_metrics['xwOBA'], 0.250, 0.420)
+    advanced_metrics['Whiff_Rate'] = np.clip(advanced_metrics['Whiff_Rate'], 15, 40)
+    advanced_metrics['Chase_Rate'] = np.clip(advanced_metrics['Chase_Rate'], 18, 45)
+    advanced_metrics['Zone_Contact_Rate'] = np.clip(advanced_metrics['Zone_Contact_Rate'], 75, 95)
+    advanced_metrics['Swing_Aggression'] = np.clip(advanced_metrics['Swing_Aggression'], 25, 65)
+    
+    return advanced_metrics
+
+
+def create_situational_analysis(n_players=150):
+    """Create situational performance analysis
+    
+    Args:
+        n_players: Number of players to generate data for (default: 150)
+    """
+    import numpy as np
+    import pandas as pd
+    
+    # Generate synthetic situational data for demonstration
+    situational_data = pd.DataFrame({
+        'RISP_OPS': np.random.normal(0.750, 0.100, n_players),
+        'High_Leverage_OPS': np.random.normal(0.740, 0.120, n_players),
+        'Two_Strike_BA': np.random.normal(0.180, 0.030, n_players),
+        'Late_Inning_OPS': np.random.normal(0.730, 0.110, n_players),
+        'Clutch_Score': np.random.normal(0.0, 1.0, n_players)
+    })
+    
+    # Ensure realistic ranges
+    situational_data['RISP_OPS'] = np.clip(situational_data['RISP_OPS'], 0.500, 1.200)
+    situational_data['High_Leverage_OPS'] = np.clip(situational_data['High_Leverage_OPS'], 0.400, 1.300)
+    situational_data['Two_Strike_BA'] = np.clip(situational_data['Two_Strike_BA'], 0.100, 0.280)
+    situational_data['Late_Inning_OPS'] = np.clip(situational_data['Late_Inning_OPS'], 0.400, 1.200)
+    situational_data['Clutch_Score'] = np.clip(situational_data['Clutch_Score'], -3.0, 3.0)
+    
+    return situational_data

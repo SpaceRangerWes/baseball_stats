@@ -32,7 +32,13 @@ from .analysis import (
     calculate_quality_contact_metrics,
     analyze_player_contact_quality,
     get_player_performance_rating,
-    find_player_by_name
+    find_player_by_name,
+    # New advanced analysis functions
+    create_correlation_heatmap,
+    identify_outliers,
+    display_luck_analysis,
+    analyze_contact_quality,
+    create_distribution_comparison
 )
 
 from .stories import (
@@ -48,7 +54,11 @@ from .stories import (
     tell_baserunning_story,
     tell_situational_story,
     tell_comprehensive_modern_story,
-    demonstrate_modern_analytics_revolution
+    demonstrate_modern_analytics_revolution,
+    create_hitter_radar_chart,
+    create_metrics_explanation,
+    create_advanced_metrics_analysis,
+    create_situational_analysis
 )
 
 # Maintain backward compatibility with the original API
@@ -56,7 +66,6 @@ quality_contact_analysis = quality_contact_story
 
 # Export all public functions
 __all__ = [
-    # Data functions
     'get_raw_hitting_stats',
     'get_raw_pitching_stats', 
     'get_qualified_hitters',
@@ -65,8 +74,6 @@ __all__ = [
     'get_player_statcast_data',
     'get_team_stats',
     'get_standings',
-    
-    # Analysis functions
     'get_modern_hitting_stats',
     'get_modern_pitching_stats',
     'classify_hitter_type',
@@ -79,8 +86,11 @@ __all__ = [
     'analyze_player_contact_quality',
     'get_player_performance_rating',
     'find_player_by_name',
-    
-    # Story functions
+    'create_correlation_heatmap',
+    'identify_outliers',
+    'display_luck_analysis',
+    'analyze_contact_quality',
+    'create_distribution_comparison',
     'demonstrate_stat_lies',
     'tell_hitter_type_stories',
     'show_context_matters',
@@ -94,8 +104,10 @@ __all__ = [
     'tell_situational_story',
     'tell_comprehensive_modern_story',
     'demonstrate_modern_analytics_revolution',
-    
-    # Backward compatibility
+    'create_hitter_radar_chart',
+    'create_metrics_explanation',
+    'create_advanced_metrics_analysis',
+    'create_situational_analysis',
     'quality_contact_analysis'
 ]
     
