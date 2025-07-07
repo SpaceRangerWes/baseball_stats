@@ -4,8 +4,8 @@ Focus on stats that actually matter, skip the lies
 
 This module provides a clean separation between:
 - Data extraction (data.py)
-- Statistical analysis (analysis.py)  
-- Educational storytelling (stories.py)
+- Statistical analysis (analysis.py)
+- Batter analysis (batter_analysis.py)
 """
 
 # Import key functions from each module for easy access
@@ -17,8 +17,11 @@ from .data import (
     get_player_lookup,
     get_player_statcast_data,
     get_team_stats,
-    get_standings
+    get_standings,
 )
+
+# Import the unified data loader
+from .data_loader import BaseballDataLoader
 
 from .analysis import (
     get_modern_hitting_stats,
@@ -33,81 +36,68 @@ from .analysis import (
     analyze_player_contact_quality,
     get_player_performance_rating,
     find_player_by_name,
-    # New advanced analysis functions
     create_correlation_heatmap,
     identify_outliers,
     display_luck_analysis,
     analyze_contact_quality,
-    create_distribution_comparison
+    create_distribution_comparison,
+    get_pitcher_splits_data,
+    calculate_pitcher_rolling_averages,
+    compare_pitcher_vs_population,
+    track_pitcher_metrics_longitudinally,
+    identify_pitcher_performance_patterns,
 )
 
-from .stories import (
-    demonstrate_stat_lies,
-    tell_hitter_type_stories,
-    show_context_matters,
-    get_player_story,
-    quality_contact_story,
-    quick_learning_examples,
-    tell_complete_story,
-    tell_modern_bat_tracking_story,
-    tell_defensive_story,
-    tell_baserunning_story,
-    tell_situational_story,
-    tell_comprehensive_modern_story,
-    demonstrate_modern_analytics_revolution,
-    create_hitter_radar_chart,
-    create_metrics_explanation,
-    create_advanced_metrics_analysis,
-    create_situational_analysis
+# Import batter analysis functions
+from .batter_analysis import (
+    create_distribution_plots,
+    analyze_single_player,
+    get_player_performance_summary,
+    create_player_comparison_plot,
+    get_league_leaders,
+    analyze_metric_correlation,
+    identify_outliers as identify_stat_outliers,
 )
-
-# Maintain backward compatibility with the original API
-quality_contact_analysis = quality_contact_story
 
 # Export all public functions
 __all__ = [
-    'get_raw_hitting_stats',
-    'get_raw_pitching_stats', 
-    'get_qualified_hitters',
-    'get_qualified_pitchers',
-    'get_player_lookup',
-    'get_player_statcast_data',
-    'get_team_stats',
-    'get_standings',
-    'get_modern_hitting_stats',
-    'get_modern_pitching_stats',
-    'classify_hitter_type',
-    'classify_pitcher_type',
-    'analyze_hitter_types',
-    'get_hitter_examples_by_type',
-    'find_stat_examples',
-    'get_elite_hitters',
-    'calculate_quality_contact_metrics',
-    'analyze_player_contact_quality',
-    'get_player_performance_rating',
-    'find_player_by_name',
-    'create_correlation_heatmap',
-    'identify_outliers',
-    'display_luck_analysis',
-    'analyze_contact_quality',
-    'create_distribution_comparison',
-    'demonstrate_stat_lies',
-    'tell_hitter_type_stories',
-    'show_context_matters',
-    'get_player_story',
-    'quality_contact_story',
-    'quick_learning_examples',
-    'tell_complete_story',
-    'tell_modern_bat_tracking_story',
-    'tell_defensive_story',
-    'tell_baserunning_story',
-    'tell_situational_story',
-    'tell_comprehensive_modern_story',
-    'demonstrate_modern_analytics_revolution',
-    'create_hitter_radar_chart',
-    'create_metrics_explanation',
-    'create_advanced_metrics_analysis',
-    'create_situational_analysis',
-    'quality_contact_analysis'
+    "BaseballDataLoader",
+    "get_raw_hitting_stats",
+    "get_raw_pitching_stats",
+    "get_qualified_hitters",
+    "get_qualified_pitchers",
+    "get_player_lookup",
+    "get_player_statcast_data",
+    "get_team_stats",
+    "get_standings",
+    "get_modern_hitting_stats",
+    "get_modern_pitching_stats",
+    "classify_hitter_type",
+    "classify_pitcher_type",
+    "analyze_hitter_types",
+    "get_hitter_examples_by_type",
+    "find_stat_examples",
+    "get_elite_hitters",
+    "calculate_quality_contact_metrics",
+    "analyze_player_contact_quality",
+    "get_player_performance_rating",
+    "find_player_by_name",
+    "create_correlation_heatmap",
+    "identify_outliers",
+    "display_luck_analysis",
+    "analyze_contact_quality",
+    "create_distribution_comparison",
+    "get_pitcher_splits_data",
+    "calculate_pitcher_rolling_averages",
+    "compare_pitcher_vs_population",
+    "track_pitcher_metrics_longitudinally",
+    "identify_pitcher_performance_patterns",
+    # Batter analysis functions
+    "create_distribution_plots",
+    "analyze_single_player",
+    "get_player_performance_summary",
+    "create_player_comparison_plot",
+    "get_league_leaders",
+    "analyze_metric_correlation",
+    "identify_stat_outliers",
 ]
-    
