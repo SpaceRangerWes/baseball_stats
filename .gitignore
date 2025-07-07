@@ -44,6 +44,7 @@ data/
 *.json
 *.parquet
 notebooks/.baseball_stats_cache/
+.baseball_stats_cache/
 
 # OS
 .DS_Store
